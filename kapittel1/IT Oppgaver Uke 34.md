@@ -1,4 +1,5 @@
 # Oppgave Uke34
+(Se sidepanelet, ved siden av denne teksten for å finne mappene og filene)
 
 |Oppgavenummer|Plassering eller svar|
 |---|---|
