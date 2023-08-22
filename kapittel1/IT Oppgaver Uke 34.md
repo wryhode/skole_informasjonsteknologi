@@ -3,7 +3,7 @@
 
 |Oppgavenummer|Plassering eller svar|
 |---|---|
-|1.01|Se `/ordbok/ordbok.html` [https://htmlpreview.github.io/?https://github.com/wryhode/skole_informasjonsteknologi/blob/main/kapittel1/ordbok/ordbok.html](Link)|
+|1.01|Se `/ordbok/ordbok.html` [https://htmlpreview.github.io/?https://github.com/wryhode/skole_informasjonsteknologi/blob/main/kapittel1/ordbok/ordbok.html](Link til htmlpreview.github.io)|
 |1.02|Se `/minreise/minreise.html` [https://htmlpreview.github.io/?https://github.com/wryhode/skole_informasjonsteknologi/blob/main/kapittel1/minreise/minreise.html](Link)|
 |1.03|Se oppgave 1.02|
 |1.04|Se `/dikt_ringen/ringen.html` [https://htmlpreview.github.io/?https://github.com/wryhode/skole_informasjonsteknologi/blob/main/kapittel1/dikt_ringen/ringen.html](Link)|
