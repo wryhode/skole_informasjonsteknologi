@@ -1,6 +1,4 @@
-#Oppgave 
-#uke34
-#Informasjonsteknologi
+# Oppgave Uke34
 
 |Oppgavenummer|Plassering eller svar|
 |---|---|
