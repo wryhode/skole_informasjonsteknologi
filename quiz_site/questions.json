@@ -23,7 +23,7 @@
             ]
         },
         {
-            "question":"Hva er nettsiden kodet i",
+            "question":"Hvilke(t) programmeringsspråk er nettsiden kodet i?",
             "alternatives":[
                 {
                     "text":"Python (I wish)",
@@ -33,7 +33,6 @@
                     "text":"HTML, CSS & JS",
                     "correct":true
                 }
-
             ]
         }
     ]
