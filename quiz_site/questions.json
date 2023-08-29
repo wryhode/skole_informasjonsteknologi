@@ -1,0 +1,40 @@
+{
+    "questions":[
+        {
+            "question":"Hvilken dag er det i dag?",
+            "alternatives":[
+                {
+                    "text":"Mandag",
+                    "correct":false
+                },
+                {
+                    "text":"Tirsdag",
+                    "correct":false
+                },
+                {
+                    "text":"Onsdag",
+                    "correct":false
+                },
+                {
+                    "text":"Fredag",
+                    "correct":true
+                }
+
+            ]
+        },
+        {
+            "question":"Hva er nettsiden kodet i",
+            "alternatives":[
+                {
+                    "text":"Python (I wish)",
+                    "correct":false
+                },
+                {
+                    "text":"HTML, CSS & JS",
+                    "correct":true
+                }
+
+            ]
+        }
+    ]
+}
