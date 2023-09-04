@@ -57,6 +57,10 @@ window.onload = function(){
             // Div where answer buttons go
             let answer_container = document.createElement("div");
             answer_container.className = "answer_alternative_container";
+
+            let center = document.createElement("center");
+            answer_container.append(center);
+
             
             // For every answer alternative, increment by 2
             for (let i_ans = 0; i_ans < json["questions"][index]["alternatives"].length; i_ans = i_ans + 2){

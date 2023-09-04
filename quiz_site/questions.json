@@ -4,11 +4,11 @@
             "question":"Hvilken dag er det i dag?",
             "alternatives":[
                 {
-                    "text":"Mandag",
+                    "text":"HTML",
                     "correct":false
                 },
                 {
-                    "text":"Tirsdag",
+                    "text":"Alternativ 1",
                     "correct":false
                 },
                 {
