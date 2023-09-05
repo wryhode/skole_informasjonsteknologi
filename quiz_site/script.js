@@ -38,10 +38,13 @@ function checkAnswer(){
 
     let pr = score / window.max_correct;
 
-    if(pr <= 0.5){
+    if(pr <= 0.33){
+        document.getElementById("comment").textContent = "Plain bad... but im not mad";
+    }
+    else if(pr <= 0.66) {
         document.getElementById("comment").textContent = "Thats kinda horrible but ok :)";
     }
-    else {
+    else{
         document.getElementById("comment").textContent = "Nice! Well done";
     }
 }
