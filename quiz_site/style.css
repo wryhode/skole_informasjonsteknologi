@@ -1,5 +1,5 @@
 :root {
-    --animation-duration: 250ms;
+    --animation-duration: 100ms;
 }
 
 body {
@@ -93,13 +93,17 @@ body {
 
 .answer_alternative_container {
     display: flex;
+    align-content: center;
+    justify-content: center;
     flex-direction: row;
     padding-bottom: 30px;
     width: 100%;
 }
 
 .alternative {
+    display: flex;
     font-family: 'Noto Sans';
+    min-width: 200px;
     font-size: 40px;
     padding: 2% 5%;
     margin: 5%;
@@ -116,7 +120,8 @@ body {
 }
 
 .alt_col {
-    /*min-width: 100%;*/
+    min-width: 50%;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
 }

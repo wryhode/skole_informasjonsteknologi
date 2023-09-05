@@ -1,37 +1,78 @@
 {
     "questions":[
         {
-            "question":"Hvilken dag er det i dag?",
+            "question":"Name two countries that share a border with Brazil",
             "alternatives":[
                 {
-                    "text":"HTML",
+                    "text":"Argentina and Chile",
                     "correct":false
                 },
                 {
-                    "text":"Alternativ 1",
+                    "text":"Peru and Venezuela",
                     "correct":false
                 },
                 {
-                    "text":"Onsdag",
-                    "correct":false
-                },
-                {
-                    "text":"Fredag",
+                    "text":"Argentina and Uruguay",
                     "correct":true
+                },
+                {
+                    "text":"Colombia and Ecuador",
+                    "correct":false
                 }
-
             ]
         },
         {
-            "question":"Hvilke(t) programmeringsspråk er nettsiden kodet i?",
+            "question":"Is Martin's quiz better?",
             "alternatives":[
                 {
-                    "text":"Python (I wish)",
+                    "text":"It's always the best",
+                    "correct":true
+                },
+                {
+                    "text":"🤓Uhm... actually! this one's better",
+                    "correct":false
+                }
+            ]
+        },
+        {
+            "question":"Solve 8/2(2+2)",
+            "alternatives":[
+                {
+                    "text":"1",
+                    "correct":true
+                },
+                {
+                    "text":"16",
                     "correct":false
                 },
                 {
-                    "text":"HTML, CSS & JS",
+                    "text":"8",
+                    "correct":false
+                },
+                {
+                    "text":"2",
+                    "correct":false
+                }
+            ]
+        },
+        {
+            "question":"What separator character do you use in file names",
+            "alternatives":[
+                {
+                    "text":"[Space]",
+                    "correct":false
+                },
+                {
+                    "text":"_",
                     "correct":true
+                },
+                {
+                    "text":"-",
+                    "correct":true
+                },
+                {
+                    "text":"%",
+                    "correct":false
                 }
             ]
         }
