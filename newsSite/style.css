@@ -1,0 +1,17 @@
+#headerBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items:center;
+
+    background-color: whitesmoke;
+}
+
+.headerBarItem {
+    padding: 1%;
+    font-size: 200%;
+}
+
+:root {
+    font-family: "Montserrat";
+}
