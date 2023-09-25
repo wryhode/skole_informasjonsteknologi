@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+
+        body
+        {
+            background-color: beige;
+        }
+
+        p
+        {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        p::first-letter
+        {
+            font-size: 41px;
+        }
+
+        p::selection
+        {
+            color: white;
+            background-color: lightblue;
+        }
+
+        q::before
+        {
+            content: '"';
+        }
+
+        q::after
+        {
+            content: '"';
+        }
+
+        h4
+        {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+
+        table
+        {
+            width: 100%;
+        }
+
+        td
+        {
+            width: 33%;
+            border-style: solid;
+            border-width: 4px;
+            border-color: gainsboro;
+            background-color: rosybrown;
+
+        }
+
+        td:hover
+        {
+            cursor: pointer;
+        }
+
+        img
+        {
+            width: 100%;
+            height: 81%;
+        }
+
+        li
+        {
+            font-size: 40px;
+        }
+
+        li:nth-child(even)
+        {
+            background-color: blue;
+        }
+
+        li:nth-child(odd)
+        {
+            background-color: red;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <p id="introductionText">
+        Gratis stockbilder!!! <q>It's free!!</q> -Happy user
+    </p>
+
+    <ul>
+        <li>
+            En park
+        </li>
+        <li>
+            En park
+        </li>
+        <li>
+            En park
+        </li>
+        <li>
+            En park
+        </li>
+    </ul>
+
+    <table>
+        <tr>
+            <td onclick='window.open("https://rroll.to/ZE60nU");'>
+                <img src="../image800x640.jpg" alt="">
+                <h4>Undertekst</h4>
+            </td>
+
+            <td onclick='window.open("https://rroll.to/ZE60nU");'>
+                <img src="../image800x640.jpg" alt="">
+                <h4>Undertekst</h4>
+            </td>
+
+            <td onclick='window.open("https://rroll.to/ZE60nU");'>
+                <img src="../image800x640.jpg" alt="">
+                <h4>Undertekst</h4>
+            </td>
+        </tr>
+        <tr>
+            <td onclick='window.open("https://rroll.to/ZE60nU");'>
+                <img src="../image800x640.jpg" alt="">
+                <h4>Undertekst</h4>
+            </td>
+
+            <td onclick='window.open("https://rroll.to/ZE60nU");'>
+                <img src="../image800x640.jpg" alt="">
+                <h4>Undertekst</h4>
+            </td>
+
+            <td onclick='window.open("https://rroll.to/ZE60nU");'>
+                <img src="../image800x640.jpg" alt="">
+                <h4>Undertekst</h4>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
