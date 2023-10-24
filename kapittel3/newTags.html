@@ -1,34 +1,112 @@
-<html lang="en">
+<html lang="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>properTags</title>
 </head>
 <body>
-    <header>
+    <!-- 
+        <header>        Title
+        <nav>           Navigation
+        <main>          Main content
+        <section>       Related content
+        <article>       Content that can be taken out of context
         
+     -->
+
+    <header>
+        <img src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" alt="logo placeholder">
     </header>
     
     <nav>
-
     </nav>
     
-    <main>
+    <main style="height: 100%;">
         <!-- Brukes til "relatert" innhold -->
         <section>
+            <h1>These are cursed lands, turn away immediately</h1>
+            <p id="messageBox"></p>
         </section>
 
         <!-- Thematic breaks -->
-        <hr>
-
+        <!-- <hr> -->
+        
         <!-- Brukes til innhold som kan brukes andre steder uten å miste sin mening -->
         <article>
-
+            <p>
+                Salamanders are a group of amphibians with a lizard-like appearance, including short legs and a tail in both larval
+                and adult forms.
+              </p>
+              
+              <aside>
+                <p>The Rough-skinned Newt defends itself with a deadly neurotoxin.</p>
+              </aside>
+              
+              <p>
+                Several species of salamander inhabit the temperate rainforest of the Pacific Northwest, including the Ensatina, the
+                Northwestern Salamander and the Rough-skinned Newt. Most salamanders are nocturnal, and hunt for insects, worms and
+                other small creatures.
+              </p>
         </article>
+
+        <canvas id="canvas" width="1900px" height="50px"></canvas>
     </main>
 
     <footer>
 
     </footer>
+
+    <script>
+        function drawDividers()
+        {
+            const c = document.getElementById("canvas");
+            const ctx = c.getContext("2d");
+            ctx.clearRect(0, 0, 190, 50);
+            ctx.moveTo(0,0);
+            for (let x = 0; x < 190; x++) {
+                ctx.lineTo(x,25+Math.sin(x/100)*23);
+                
+            }
+            ctx.stroke();
+            window.requestAnimationFrame(drawDividers);
+        }
+        
+        function init()
+        {
+            window.requestAnimationFrame(drawDividers);
+        }
+
+        const msg1 = "Hei! Denne nettsiden vil prøve å lære deg å bruke HTML";
+        const msg2 = "Hello! This website will try to teach you to use HTML";
+        var p = document.getElementById("messageBox");
+
+        var msg1Split = msg1.split(" ")
+        var msg2Split = msg2.split(" ")
+
+        var i = 0;
+        msg1Split.forEach(element => {
+            var rnd = Math.floor(Math.random()+0.5);
+            var s = document.createElement("span");
+            var a;
+            if(rnd == 0)
+            {
+                a = element + " ";
+                s.innerHTML = a;
+                s.lang = "no"
+            }
+            else
+            {
+                a = msg2Split[i] + " ";
+                s.innerHTML = a;
+                s.lang = "en";
+            }
+            p.appendChild(s);
+
+            i ++;
+        });
+
+        init();
+        
+    </script>
 </body>
 </html>
