@@ -1,0 +1,73 @@
+body
+{
+    color: white;
+    margin: 0;
+    font-family: "Roboto";
+    background-color: #000;
+}
+
+header
+{
+    margin: 1%;
+    /*border: solid 1px;*/
+}
+
+header p
+{
+    margin: 0;
+}
+
+nav
+{
+    width: 100%;
+}
+
+#container
+{
+    width: 75%;
+    /*border: solid 1px;*/
+}
+
+#headerLogo
+{
+    width: 50%;
+    max-width: 75%;
+}
+
+.centered
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navbar
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    width: 50%;
+    /*border: solid 1px;*/
+
+    background-color: lightgrey;
+}
+
+.navbar a
+{
+    /*border: solid 1px;*/
+    padding: 1%;
+    background-color: lightblue;
+    text-decoration: none;
+}
+
+.background {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
