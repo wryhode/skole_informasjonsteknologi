@@ -57,14 +57,16 @@ nav
     width: 50%;
     /*border: solid 1px;*/
 
-    background-color: lightgrey;
+    background-color: transparent;
 }
 
 .navbar a
 {
     /*border: solid 1px;*/
-    padding: 1%;
-    background-color: lightblue;
+    padding: 5%;
+    color: white;
+    background-color: aqua;
+    border-radius: 10px;
     text-decoration: none;
 }
 
