@@ -1,10 +1,12 @@
 const apikey="563492ad6f917000010000019b983f3b62fe43daa92e746d4553dd35";
 
-async function CuratedPhotos(page_num){
+async function CuratedPhotos(page_num)
+{
     var data=await fetch(`https://api.pexels.com/v1/search?query=${document.getElementById("ttl").innerHTML}&orientation=landscape&page=1&per_page=3`, 
     {
         method: "GET",
-        headers: {
+        headers:
+        {
             Accept: "application/json",
             Authorization: apikey,
         },
@@ -16,18 +18,22 @@ async function CuratedPhotos(page_num){
     var data=await fetch(`https://api.pexels.com/v1/search?query=${document.getElementById("ttl").innerHTML}&orientation=landscape&page=${Math.floor(Math.random()*n_pages)}&per_page=3`, 
     {
         method: "GET",
-        headers: {
+        headers:
+        {
             Accept: "application/json",
             Authorization: apikey,
         },
     });
     var response=await data.json();
+    console.log(response);
     display_images(response);
 }
 
-function display_images(response){
+function display_images(response)
+{
     var i = 0;
-    response.photos.forEach((image) => {
+    response.photos.forEach((image) => 
+    {
         var el = document.getElementsByClassName("fancySelectElement").item(i)
         if (el != null)
         {
@@ -37,4 +43,10 @@ function display_images(response){
     });
 }
 
-window.onload = CuratedPhotos();
+function onLoaded()
+{
+    CuratedPhotos();
+    document.getElementById("container").style.display = "contents";
+}
+
+window.onload = onLoaded();

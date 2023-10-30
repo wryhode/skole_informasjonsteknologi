@@ -21,13 +21,13 @@ body
 {
     flex: 1;
     width: 100%;
-    transition-duration: 1s;
-    transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition-duration: 250ms;
+    transition-timing-function: linear;
     color: white;
 
     margin: 1rem;
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 50px;
 
     background-image: url("./pexels-liger-pham-1108701.jpg");
     background-position: center;
@@ -37,28 +37,66 @@ body
 
 
     text-shadow: 0px 0px 5px #000;
+
 }
 
 .fancySelectElement h1
 {
+    font-stretch: ultra-expanded;
     font-size: 10rem;
 }
 
 .fancySelectElement p
 {
     font-size: 2rem;
+    position: absolute;
+    bottom: 0;
+    margin-left: 2rem;
+    margin-bottom: 5rem;
+}
+
+.fancySelectElement a
+{
+    font-size: 2rem;
+    color: goldenrod;
+    position: absolute;
+    bottom: 0;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
 }
 
 .fancySelectElement:hover
 {
     flex: 5;
     filter: grayscale(0%);
-    transition: 250ms;
-    transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition-timing-function: linear;
+    border-radius: 10px;
+}
+
+.fancySelectElementText
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+header p
+{
+    color: white;
+    font-size: 3rem;
+    margin: 0px;
+    margin-left: 2rem;
 }
 
 #ttl
 {
+    margin: 0px;
+    margin-left: 5rem;
     color: white;
     font-size: 10rem;
+}
+
+#container
+{
+    display: none;
 }
