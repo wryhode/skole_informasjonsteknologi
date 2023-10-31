@@ -33,11 +33,15 @@ body
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: grayscale(100%);
+    filter: grayscale(90%);
 
 
     text-shadow: 0px 0px 5px #000;
+}
 
+.keepColor
+{
+    filter: grayscale(0%);
 }
 
 .fancySelectElement h1
@@ -55,6 +59,12 @@ body
     margin-bottom: 5rem;
 }
 
+.fancySelectElement p::selection
+{
+    background-color: white;
+    color: black;
+}
+
 .fancySelectElement a
 {
     font-size: 2rem;
@@ -63,6 +73,7 @@ body
     bottom: 0;
     margin-left: 2rem;
     margin-bottom: 2rem;
+    text-wrap: wrap;
 }
 
 .fancySelectElement:hover
@@ -71,6 +82,7 @@ body
     filter: grayscale(0%);
     transition-timing-function: linear;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .fancySelectElementText
@@ -78,6 +90,143 @@ body
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.fancySelectGrid
+{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.fancySelectCol
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex: 1;
+    transition-duration: 250ms;
+}
+
+.fancySelectCol:hover
+{
+    flex:3;
+}
+
+.subHeader
+{
+    width: 100%;
+    text-align: center;
+    font-size: 10rem;
+    color: white;
+    transition-duration: 250ms;
+}
+
+.subHeader:hover
+{
+    transform: skewX(-30deg) scaleX(2);
+}
+
+.subHeader2
+{
+    text-align: center;
+    font-size: 10rem;
+    color: white;
+    transform: scaleX(-1);
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition-duration: 1s;
+}
+
+.subHeader2:hover
+{
+    transform: skewX(30deg) scaleX(1);
+}
+
+.subHeader2:hover:after
+{
+    transform: skewX(30deg) scaleX(1);
+}
+
+.spacer
+{
+    height: 50%;
+}
+
+.centerMessage
+{
+    border-top: white solid 1px;
+    border-left: white solid 1px;
+    border-right: white solid 1px;
+    width: 100;
+    text-align: right;
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 0px;
+}
+
+.centerMessageEnd
+{
+    margin: 0px;
+    border-bottom: white solid 1px;
+    border-left: white solid 1px;
+    border-right: white solid 1px;
+    width: 100%;
+    color: white;
+    font-size: 3rem;
+}
+
+.card
+{
+    background-position-y: center;
+    background-size: 100vw;
+    background-attachment: fixed;
+    height: 75vh;
+    margin-bottom: 50vh;
+    padding: 4rem;
+    text-shadow: 0px 0px 5px #000;
+}
+
+.card h1
+{
+    color: white;
+    font-size: 10rem;
+}
+
+.card p
+{
+    width: 100%;
+    color:white;
+    font-size: 4rem;
+}
+
+.bg1
+{
+    background-image: url("./pexels-liger-pham-1108701.jpg");
+    transition-duration: 250ms;
+}
+
+.bg2
+{
+    background-image: url("./pexels-stefan-stefancik-109243.jpg");
+}
+
+.bg3
+{
+    background-image: url("./pexels-krivec-ales-547114.jpg");
+}
+
+.rightAlign
+{
+    text-align: right;
+
+}
+
+.bgImage
+{
+    position: relative;
+    left: 0;
+    top: 0;
 }
 
 header p
@@ -98,5 +247,19 @@ header p
 
 #container
 {
+    overflow-y:hidden;
     display: none;
 }
+
+.slide-in-from-right {
+    animation: 2s ease-out 1 slideInFromRight forwards;
+  }
+  
+  @keyframes slideInFromRight {
+    0% {
+      filter: brightness(0%);
+    }
+    100% {
+      filter: brightness(100%);
+    }
+  }
