@@ -14,7 +14,6 @@ const startAnimation = (entries, observer) => {
 
 function addKeepColor(event)
 {
-    
     event.srcElement.classList.add("keepColor");
 }
 
