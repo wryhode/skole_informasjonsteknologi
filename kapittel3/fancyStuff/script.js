@@ -21,7 +21,7 @@ const apikey="563492ad6f917000010000019b983f3b62fe43daa92e746d4553dd35";
 
 async function CuratedPhotos(page_num)
 {
-    var numImages = document.getElementsByClassName('fancySelectElement').length;
+    var numImages = document.getElementsByClassName('fancySelectElement').length + document.getElementsByClassName('placeholderImage').length;
     console.log(numImages);
     document.title = document.getElementById("ttl").innerHTML;
     var data=await fetch(`https://api.pexels.com/v1/search?query=${document.getElementById("ttl").innerHTML}&orientation=landscape&page=1&per_page=${numImages}`, 
@@ -56,7 +56,7 @@ function display_images(response)
     var i = 0;
     response.photos.forEach((image) => 
     {
-        var el = document.getElementsByClassName("fancySelectElement").item(i)
+        var el = document.getElementsByClassName("fancySelectElement").item(i);
         if (el != null)
         {
             el.style.backgroundImage = `url(${image.src.large})`;
@@ -67,6 +67,16 @@ function display_images(response)
             el.getElementsByTagName("a")[0].href = image.url;
             el.getElementsByTagName("a")[0].innerHTML = image.photographer_url;
             el.getElementsByTagName("p")[0].innerHTML = image.alt + " by " + String(image.photographer) + ".";
+        }
+        else
+        {
+            console.log("aaaaaaaa")
+            var el = document.getElementsByClassName("placeholderImage").item(i-document.getElementsByClassName('fancySelectElement').length);
+            if (el != null)
+            {
+                console.log("bbbbb")
+                el.src = image.src.large;
+            }
         }
         i++;
     });

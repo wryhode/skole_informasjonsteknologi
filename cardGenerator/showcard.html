@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <form action="">
+            <label for="itemImage">Select an item image:</label>
+            <input type="file" name="image" id="itemImage">
+        </form>
+    </section>
+
+    <div class="card">
+        <div class="centered">
+            <h1 id="cardTitle"></h1>
+            <p class="tiny" id="rarityItem"></p>
+            <p class="tiny" id="requirement"></p>
+            <img src="" alt="" id="fgImage">
+        </div>
+        <p id="cardDesc"></p>
+    </div>
+
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        document.getElementById("cardTitle").innerHTML = urlParams.get("title");
+        document.getElementById("rarityItem").innerHTML = urlParams.get("rarity") +" \t "+ urlParams.get("type");
+        document.getElementById("requirement").innerHTML = urlParams.get("requirement");
+        document.getElementById("cardDesc").innerHTML = urlParams.get("description");
+        
+        const imgInp = document.getElementById("itemImage");
+        imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            document.getElementById("fgImage").src = URL.createObjectURL(file);
+        }
+        }
+
+    </script>
+</body>
+</html>

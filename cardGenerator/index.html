@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card generator</title>
+</head>
+<body>
+    <header>
+        <h1>Card generator</h1>
+    </header>
+
+    <section>
+        <form action="./showcard.html">
+            <label for="fgImage">Select a main image</label>
+            <input type="file" name="foregroundImage" id="fgImage">
+            <br>
+            <label for="cardTitle">Title</label>
+            <input type="text" name="title" id="cardTitle">
+            <br>
+            <label for="cardRarity">Rarity</label>
+            <select name="rarity" id="cardRarity">
+                <option value="Common">Common</option>
+                <option value="Uncommon">Uncommon</option>
+                <option value="Rare">Rare</option>
+                <option value="Very Rare">Very Rare</option>
+                <option value="Legendary">Legendary</option>
+                <option value="Artifact">Artifact</option>
+            </select>
+            <br>
+            <label for="cardType">Type</label>
+            <input type="text" name="type" id="cardType">
+            <br>
+            <label for="cardReq">Requirement</label>
+            <input type="text" name="requirement" id="cardReq">
+            <br>
+            <label for="cardDesc">Description</label>
+            <input type="text" name="description" id="cardDesc">
+            <br>
+            <button type="submit">Create card</button>
+        </form>
+    </section>
+</body>
+</html>

@@ -1,0 +1,32 @@
+.card
+{
+    width: 500px;
+    height: 750px;
+    border-radius: 2em;
+    border: solid black 20px;
+    background-image: url("./cardbg.png");
+    background-repeat: repeat;
+    font-family: Calisto MT,Bookman Old Style,Bookman,Goudy Old Style,Garamond,Hoefler Text,Bitstream Charter,Georgia,serif; 
+    padding: 2rem;
+    margin: 1rem;
+}
+
+.card img
+{
+    width: 75%;
+}
+
+.card h1
+{
+    margin: 0px;
+}
+
+.centered
+{
+    text-align: center;
+}
+
+.tiny
+{
+    margin: 0px;
+}
