@@ -281,11 +281,16 @@ header p
 
 .gridContainer article
 {
-    margin: 2rem;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 2rem;
+    border: solid white 1px;
+    opacity: 50%;
 }
 
 .gridContainer img
 {
     width: 100%;
+    border-radius: 2rem;
     object-fit: cover;
 }

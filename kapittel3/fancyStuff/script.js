@@ -34,7 +34,6 @@ async function CuratedPhotos(page_num)
         },
     });
     var response=await data.json();
-    console.log(response.total_results);
     var n_pages = Math.floor(response.total_results / numImages);
 
     var data=await fetch(`https://api.pexels.com/v1/search?query=${document.getElementById("ttl").innerHTML}&orientation=landscape&page=${Math.floor(Math.random()*n_pages)}&per_page=${numImages}`, 
@@ -47,7 +46,6 @@ async function CuratedPhotos(page_num)
         },
     });
     var response=await data.json();
-    console.log(response);
     display_images(response);
 }
 
@@ -63,18 +61,15 @@ function display_images(response)
             el.style.backgroundColor = image.avg_color;
             el.setAttribute("onclick",`window.open('${image.url}');`);
             el.addEventListener("mouseover",addKeepColor)
-            console.log(image.photographer);
             el.getElementsByTagName("a")[0].href = image.url;
             el.getElementsByTagName("a")[0].innerHTML = image.photographer_url;
             el.getElementsByTagName("p")[0].innerHTML = image.alt + " by " + String(image.photographer) + ".";
         }
         else
         {
-            console.log("aaaaaaaa")
             var el = document.getElementsByClassName("placeholderImage").item(i-document.getElementsByClassName('fancySelectElement').length);
             if (el != null)
             {
-                console.log("bbbbb")
                 el.src = image.src.large;
             }
         }
@@ -82,9 +77,45 @@ function display_images(response)
     });
 }
 
+function populateLorem()
+{
+    var el = document.getElementsByClassName("lorem");
+    for (const element in el) 
+    {
+        ele = el.item(element);
+        const response = "Jowl prosciutto salami, beef ribs pig kielbasa turducken leberkas.  Alcatra kielbasa bresaola, hamburger chuck buffalo ball tip beef biltong spare ribs frankfurter.  Sirloin ground round short loin, filet mignon ham frankfurter swine beef ribs shoulder picanha turducken.  Pastrami chuck chislic beef drumstick.  Jowl boudin corned beef swine, meatloaf chuck shank kevin salami leberkas filet mignon bacon chicken pastrami.";
+        ele.innerHTML = response;
+    };
+}
+
+function fadeProxElements(event)
+{
+    const el = document.getElementsByClassName("proximityOpacity");
+    for (const i in el)
+    {
+        element = el.item(i);
+        const rect = ele.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height
+        const top = rect.top + document.body.scrollTop;
+        const left = rect.left + document.body.scrollLeft;
+        const x = left + (w/2);
+        const y = top + (h/2);  
+
+        var a = event.pageX - x;
+        var b = event.pageY - y;
+
+        var distance = Math.sqrt( a*a + b*b );
+
+        element.style.opacity= `${distance/1000}%`;
+    }
+}
+
 function onLoaded()
 {
     CuratedPhotos();
+    populateLorem();
+    document.addEventListener("mousemove",fadeProxElements);
     document.getElementById("container").style.display = "contents";
 }
 
