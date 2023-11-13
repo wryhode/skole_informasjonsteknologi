@@ -107,7 +107,7 @@ function fadeProxElements(event)
 
         var distance = Math.sqrt( a*a + b*b );
 
-        element.style.opacity= `${distance/1000}%`;
+        //element.style.opacity= `${distance/1000}%`;
     }
 }
 
