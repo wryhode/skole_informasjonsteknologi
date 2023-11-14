@@ -1,0 +1,120 @@
+body
+{
+    margin: 0px;
+    background-color: #f2f3f3;
+}
+
+nav
+{
+    display: flex;
+    justify-content: center;
+    height: 4rem;
+    margin: 0px;
+    background-color: #ec2027;
+    /* background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    ); */
+}
+
+#navbar
+{
+    max-width: 75%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    height: 100%;
+}
+
+#navbar img
+{
+    height: 50%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#navButtons
+{
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+}
+
+#navButtons a
+{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+#newsContainer
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.news
+{
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 50%;
+    grid-auto-rows: minmax(13rem, auto);
+    gap: 1rem;
+}
+
+.news a
+{
+    background-color: #eee;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    position: relative;  
+    font-family: sans-serif; 
+}
+
+.news h1
+{
+    position: absolute;
+    margin: 0px;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.news img
+{
+    position: absolute;
+    margin: 0px;
+    left: 0;
+    top: 0;
+    border-radius: 1%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tre-kolonner { grid-column: span 3; }
+.fire-kolonner { grid-column: span 4; }
+.seks-kolonner { grid-column: span 6; }
+.ni-kolonner { grid-column: span 9; }
+.en-rad { grid-row: span 1;}
+.to-rader { grid-row: span 2;}
+.tre-rader { grid-row: span 3;}
+.fire-rader { grid-row: span 4;}
+.seks-rader { grid-row: span 6;}
