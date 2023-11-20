@@ -1,0 +1,29 @@
+.gridContainer
+{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+article
+{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+article p
+{
+    flex: 2;
+}
+
+article img
+{
+    flex: 1;
+    height: 100%;
+    /* height: 100%; */
+    object-fit: scale-down;
+}
