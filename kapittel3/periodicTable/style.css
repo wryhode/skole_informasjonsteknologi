@@ -1,0 +1,47 @@
+#table
+{
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    grid-template-rows: repeat(7,1fr);
+    gap: 1rem;
+}
+
+.element
+{
+    border: 1px solid black;
+    width: 100%;
+    background-color: aqua;
+    text-align: center;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.element img
+{
+    width: 100%;
+}
+
+.elementTopBar
+{
+    display: flex;
+    align-items: center;
+}
+
+.elementTopBar img
+{
+    height: 1.5rem;
+}
+
+.topBarItem
+{
+    font-size: 1rem;
+}
+
+.elementTitle
+{
+    font-size: 1.5rem;
+}
+
+.elementWidget
+{
+    font-size: 1.5rem;
+}
