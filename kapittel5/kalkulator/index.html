@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+
+    <link href="https://fonts.cdnfonts.com/css/seven-segment" rel="stylesheet">
+    <style>
+        #display{
+            font-family: 'Seven Segment', sans-serif;
+            font-size: 2rem;
+        }
+        
+        .button {
+            font-size: 2rem
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="main">
+        <h1>Kalkulator!</h1>
+        <p>Brukes som en klassisk lommeregner</p>
+        <input type="number" id="display">
+        <span id="buttons">
+            <button id="btnAdd" class="button">+</button>
+            <button id="btnSub" class="button">-</button>
+            <button id="btnMlt" class="button">*</button>
+            <button id="btnDiv" class="button">/</button>
+            <button id="btnSum" class="button">=</button>
+        </span>
+    </div>
+
+    <script>
+
+        const display = document.getElementById("display");
+        const btnAdd = document.getElementById("btnAdd");
+        const btnSub = document.getElementById("btnSub");
+        const btnMtl = document.getElementById("btnMlt");
+        const btnDiv = document.getElementById("btnDiv");
+        const btnSum = document.getElementById("btnSum");
+        
+        let firstLatchedValue = null;
+        let secondLatchedValue = null;
+        let operation = null;
+        let sum = null;
+
+        function clearDisplay()
+        {
+            display.value = "";
+        }
+
+        function latchValue()
+        {
+            firstLatchedValue = Number(display.value);
+            clearDisplay();
+        }
+
+        btnAdd.onclick = function()
+        {
+            latchValue();
+            operation = "+";
+        }
+
+        btnSub.onclick = function()
+        {
+            latchValue();
+            operation = "-";
+        }
+
+        btnMlt.onclick = function()
+        {
+            latchValue();
+            operation = "*";
+        }
+
+        btnDiv.onclick = function()
+        {
+            latchValue();
+            operation = "/";
+        }
+
+        btnSum.onclick = function()
+        {
+            // It's time to do some math and chew bubblegum, and im all out of bubblegum
+
+            secondLatchedValue = Number(display.value);
+            clearDisplay();
+
+            if(operation == "+")
+            {
+                sum = firstLatchedValue + secondLatchedValue;
+            }
+            else if(operation == "-")
+            {
+                sum = firstLatchedValue - secondLatchedValue;    
+            }
+            else if(operation == "*")
+            {
+                sum = firstLatchedValue * secondLatchedValue;
+            }
+            else if(operation == "/")
+            {
+                if(secondLatchedValue == 0)
+                {
+                    let gif = document.createElement("img");
+                    let main = document.getElementById("main");
+                    main.style.display = "none";
+                    gif.src = "./explode.gif";
+                    document.body.appendChild(gif)
+                    document.body.innerHTML += "<br>Din kronidiot!! Se hva du har gjort!!!!";
+                    document.body.innerHTML += "<br><i>(Last inn siden på nytt)</i>";
+                    sum = 0;
+                    return;
+                }
+                else
+                {
+                    sum = firstLatchedValue / secondLatchedValue;
+                }
+            }
+            else
+            {
+                sum = 0;
+            }
+
+            display.value = sum;
+
+        }
+
+    </script>
+</body>
+</html>
