@@ -1,0 +1,33 @@
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Valgsetninger</title>
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Input felter -->
+    <label style="font-size: 3rem;">Hvilken brus liker du?</label><input id="brus" type="text"><br><br>
+    <button id="btnTrykk">Send inn svar</button>
+    <p id="resultat"></p>
+
+    <script>
+        let brus = document.getElementById("brus");
+        let btnTrykk = document.getElementById("btnTrykk");
+        let resultat = document.getElementById("resultat");
+        
+        btnTrykk.onclick = () => 
+        {
+            if(brus.value.toLowerCase() == "cola" || brus.value.toLowerCase() == "fanta")
+            {
+                resultat.innerHTML = "Du er medlem i brusklubben!";
+            }
+            else
+            {
+                resultat.innerHTML = "Du er ikke medlem i brusklubben.";
+            }
+        }
+
+    </script>
+</body>
+</html>

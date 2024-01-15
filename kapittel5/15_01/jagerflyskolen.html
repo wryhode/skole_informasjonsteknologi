@@ -1,0 +1,36 @@
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Jagerflyskolen</title>
+</head>
+<body>
+    <label style="font-size: 3rem;">Hvor høy er du? (i cm)</label><input type="number" id="hoyde"><br><br>
+    <label style="font-size: 3rem;">Hvor gammel er du?</label><input type="number" id="alder"><br><br>
+    <button id="btnTrykk">Send inn</button>
+    <p id="resultat"></p>
+    
+    <script>
+        let hoyde = document.getElementById("hoyde");
+        let alder = document.getElementById("alder");
+        let btn = document.getElementById("btnTrykk");
+        let resultat = document.getElementById("resultat");
+
+        btn.onclick = () => 
+        {
+            if(Number(hoyde.value) < 130 || Number(hoyde.value > 200))
+            {
+                resultat.innerHTML = "Beklager du kom ikke inn pga. høyden din";
+            }
+            else if(Number(alder.value) < 17 || Number(alder.value > 45))
+            {
+                resultat.innerHTML = "Beklager du kom ikke inn pga. alderen din";
+            }
+            else
+            {
+                resultat.innerHTML = "Gratulerer! Du kom inn på jagerflyskolen!"
+            }
+
+        }
+    </script>
+</body>
+</html>

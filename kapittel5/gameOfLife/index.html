@@ -1,0 +1,204 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+</head>
+<body>
+    <div id="GoLCanvas"></div>
+
+    <script>
+        const golDiv = document.getElementById("GoLCanvas");
+        let canvas = document.createElement("canvas");
+        canvas.width = 600;
+        canvas.height = 600;
+        golDiv.appendChild(canvas);
+        let ctx = canvas.getContext("2d");
+        let lastTime = Date.now();
+        let timeTick = 100;
+        
+        // Create 2D gamestate array
+        let gameStateWidth = 100;
+        let gameStateHeight = 100;
+        let activeArea = 0;
+        let activeAreaOpposite = 1;
+        let xri, yri = 0;
+        let changes = 0;
+        let lastChanges = 0;
+
+        let gameState0 = new Array(gameStateHeight);
+        let gameState1 = new Array(gameStateHeight);
+        initGamestate();
+
+        // Fix JS' bad modulo operator from https://stackoverflow.com/a/17323608/16393807
+        function mod(n, m) {
+            return ((n % m) + m) % m;
+        }
+
+        function setGameState(n, x, y, value)
+        {
+            if(n == 0)
+            {
+                gameState0[y][x] = value;
+            }
+            else
+            {
+                gameState1[y][x] = value;
+            }
+        }
+
+        function getGameState(n, x, y, wrap)
+        {
+            if(wrap)
+            {
+                x = mod(x, gameStateWidth);
+                y = mod(y, gameStateHeight);
+            }
+
+            if(n == 0)
+            {
+                return gameState0[y][x];
+            }
+            else
+            {
+                return gameState1[y][x];
+            }
+        }
+
+        function getCountInArea(n, x, y)
+        {
+            let count = 0;
+            for(let yi = -1; yi <= 1; yi++)
+            {
+                for(let xi = -1; xi <= 1; xi++)
+                {
+                    if(x + xi < 0)
+                    {
+                        xri = gameStateWidth - 1;
+                    }
+                    else if(x + xi >= gameStateWidth)
+                    {
+                        xri = 0;
+                    }
+                    else
+                    {
+                        xri = xi;
+                    }
+                    if(y + yi < 0)
+                    {
+                        yri = gameStateHeight - 1;
+                    }
+                    else if(y + yi >= gameStateHeight)
+                    {
+                        yri = 0;
+                    }
+                    else
+                    {
+                        yri = yi;
+                    }
+
+                    if(getGameState(n, x + xri , y + yri, true))
+                    {
+                        count ++;
+                    }
+                }
+            }
+            return count;
+        }
+        
+        function initGamestate()
+        {
+            for (var i = 0; i < gameState0.length; i++)
+            {
+                gameState0[i] = new Array(gameStateWidth);
+                gameState1[i] = new Array(gameStateWidth);
+                for (let j = 0; j < gameState0[i].length; j++) {
+                    setGameState(0, j, i, Math.floor(Math.random()+0.2));
+                    setGameState(1, j, i, getGameState(0, j, i, true));
+                }
+            }
+        }
+
+        function tick()
+        {
+            //ctx.fillStyle = "rgba(255,255,255,0.25)";
+            //ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.fillStyle = "#000000"
+            let yi = (canvas.height / gameState0.length)
+            let xi = (canvas.width / gameState0[0].length)
+
+            if(activeArea == 0){
+                activeArea = 1;
+                activeAreaOpposite = 0;
+            }
+            else
+            {
+                activeArea = 0;
+                activeAreaOpposite = 1;
+            }
+
+            lastChanges = changes;
+            changes = 0;
+            for (let y = 0; y < gameStateHeight; y++) {
+                for (let x = 0; x < gameStateWidth; x++) {
+
+                    const boardValue = getGameState(activeAreaOpposite, x, y, false);
+ 
+                    //if(x > 0 && x < gameStateWidth && y > 0 && y < gameStateHeight)
+                    if(true)
+                    {
+
+                        const count = getCountInArea(activeAreaOpposite, x,y);
+
+                        setGameState(activeArea, x,y,0);
+                        if(boardValue == 1 && count < 2)
+                        {
+                            setGameState(activeArea, x,y,0);
+                            changes ++;
+                        }
+                        else if(boardValue == 1 && (count == 2 || count == 3))
+                        {                            
+                            setGameState(activeArea, x,y,getGameState(activeAreaOpposite, x,y, true));
+                            //setGameState(activeArea, x, y, 1);
+                        }
+                        else if(boardValue == 1 && count > 3)
+                        {
+                            setGameState(activeArea, x,y,0);
+                            changes ++;
+                        }
+                        if(boardValue == 0 && count == 3)
+                        {
+                            setGameState(activeArea, x,y,1);
+                            changes ++;
+                        }
+                    }
+                    if(boardValue == 1)
+                    {
+                        ctx.fillRect(xi * x, yi * y, xi/1.1, yi/1.1);
+                    }
+                }
+            }
+            if(changes < 4 || lastChanges == changes)
+            {
+                //initGamestate();
+            }
+            ctx.stroke();
+
+        }
+
+        window.main = () => {
+            window.requestAnimationFrame(main);
+            if(Date.now() > lastTime + timeTick)
+            {
+                lastTime = Date.now();
+                tick();
+            }
+        }
+
+        main();
+    </script>
+</body>
+</html>
