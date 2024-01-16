@@ -146,6 +146,38 @@ class Rect
                 return true;
             }
         }
+
+        this.closestRectEgde = function(rect)
+        {
+            let closestY = "";
+            let closestX = "";
+            if(rect.y + (rect.height / 2) > this.y + (this.height / 2))
+            {
+                closestY = "top";
+            }
+            else
+            {
+                closestY = "bottom";
+            }
+            if(rect.x + (rect.width / 2) > this.x + (this.width / 2))
+            {
+                closestX = "right";
+            }
+            else
+            {
+                closestX = "left";
+            }
+            let distX = rect.y + (rect.height / 2) - this.y + (this.height / 2);
+            let distY = rect.x + (rect.width / 2) - this.x + (this.width / 2);
+            if(distX >= distY)
+            {
+                return closestX;
+            }
+            else
+            {
+                return closestY;
+            }
+        }
     }
 }
 
@@ -156,7 +188,8 @@ class Player extends Rect
         super(x, y, width, height);
         this.velocityX = 0;
         this.velocityY = 0;
-        this.canJump = true;
+        this.canJump = false;
+        this.onFloor = false;
     }
 }
 
@@ -175,6 +208,7 @@ window.main = () => {
 
     player.velocityY += world.gravityY;
     
+    player.onFloor = false;
     level.forEach(ground => {
         if(player.collideRect(ground))
         {
@@ -182,30 +216,31 @@ window.main = () => {
             pushDirY = 0;
             pushDirX = 0;
             player.y ++;
-            if(player.collideRect(ground))
+
+            let closestEdge = ground.closestRectEgde(player);
+
+            if(closestEdge == "bottom")
             {
                 player.velocityY = 0;
-                if(player.y <= ground.y + (ground.height / 2))
-                {
-                    pushDirY = -1;
-                    player.canJump = true;
-                }
-                else
-                {
-                    pushDirY = 1;
-                }
+                pushDirY = -1;
+                player.onFloor = true;
             }
-            else
+            else if(closestEdge == "top")
+            {
+                player.velocityY = 0;
+                pushDirY = 1;
+                player.y ++;
+            }
+            if(closestEdge == "left")
             {
                 player.velocityX = 0;
-                if(player.x <= ground.x + (ground.width / 2))
-                {
-                    pushDirX = 1;
-                }
-                else
-                {
-                    pushDirX = -1;
-                }
+                pushDirX = -1;
+            }
+            else if(closestEdge == "right")
+            {
+                player.velocityX = 0;
+                pushDirX = 1;
+                player.x --;
             }
 
             while(player.collideRect(ground))
@@ -213,14 +248,27 @@ window.main = () => {
                 player.x += pushDirX;
                 player.y += pushDirY;
             }
-            //player.x -= pushDirX;
-            //player.y -= pushDirY;
+            player.x -= pushDirX;
+            player.y -= pushDirY;
+        }
+
+        if(player.onFloor)
+        {
+            player.canJump = true;
+        }
+        else if(player.coyoteTimer > 0)
+        {
+            player.canJump = true;
+        }
+        else
+        {
+            player.canJump = false;
         }
 
         if(upPressed && player.canJump)
         {
             player.velocityY = -10;
-            player.y --;
+            //player.y --;
             player.canJump = false;
         }
     });
@@ -271,5 +319,6 @@ let level = [];
 level.push(new Platform(-500, 600, 1000, 30));
 level.push(new Platform(-100, 500, 200, 30));
 level.push(new Platform(400, 500, 130, 130));
+level.push(new Platform(-530, 500, 130, 130));
 
 main();

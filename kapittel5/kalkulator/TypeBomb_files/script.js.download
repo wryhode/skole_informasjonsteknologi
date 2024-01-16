@@ -1,0 +1,92 @@
+const mainDiv = document.getElementById("game");
+let canvas = document.getElementById("gameCanvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let ctx = canvas.getContext("2d");
+let currentTypeGoal = [];
+
+let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+let mouseX, mouseY = 0;
+
+function handleMouseMove(event)
+{
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+}
+
+document.addEventListener("mousemove", handleMouseMove);
+
+function handleKeyDown(event)
+{
+    let key = event.key;
+    if(key == "a")
+    {
+        console.log("test");
+    }
+}
+
+document.addEventListener("keydown", handleKeyDown);
+
+function generateRandomLetters(nChars)
+{
+    currentTypeGoal = [];
+    for (let i = 0; i < nChars; i++) {
+        currentTypeGoal.push(alphabet[Math.floor(Math.random() * alphabet.length)]);
+    }
+}
+
+function randomRGB()
+{
+    return `rgba(${64+Math.floor(Math.random()*128)}, ${64+Math.floor(Math.random()*128)}, ${64+Math.floor(Math.random()*128)}, 1.0);`
+}
+
+function hsvToRgb(h, s, v) {
+    var r, g, b;
+  
+    var i = Math.floor(h * 6);
+    var f = h * 6 - i;
+    var p = v * (1 - s);
+    var q = v * (1 - f * s);
+    var t = v * (1 - (1 - f) * s);
+  
+    switch (i % 6) {
+      case 0: r = v, g = t, b = p; break;
+      case 1: r = q, g = v, b = p; break;
+      case 2: r = p, g = v, b = t; break;
+      case 3: r = p, g = q, b = v; break;
+      case 4: r = t, g = p, b = v; break;
+      case 5: r = v, g = p, b = q; break;
+    }
+  
+    return [ r * 255, g * 255, b * 255 ];
+}
+
+function rgbToRgbaString(color)
+{
+    return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1.0)`
+}
+
+window.main = () =>
+{
+    window.requestAnimationFrame(main);
+    
+    ctx.fillStyle = rgbToRgbaString(hsvToRgb((timer/1000) % 1, 0.75, 0.75));
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.fillStyle = "#000000";
+    ctx.font = "30px Arial";
+    let xi = canvas.width / (ctx.measureText(currentTypeGoal).width + (10 * currentTypeGoal.length));
+    let x = 0;
+    currentTypeGoal.forEach(letter => {
+        ctx.fillText(letter, x, canvas.height / 2);
+        x += xi;
+    });
+    
+    ctx.stroke();
+    timer ++;
+}
+
+generateRandomLetters(5);
+
+let timer = 0;
+main();
