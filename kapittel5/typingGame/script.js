@@ -48,7 +48,7 @@ document.addEventListener("keydown", handleKeyDown);
 function winCurrentType()
 {
     //generateNextLetters();
-    generateRandomLetters(100+Math.floor(Math.random()*5));
+    generateRandomLetters(3+Math.floor(Math.random()*5));
     currentTypeIndex = 0;
 }
 
@@ -143,7 +143,7 @@ window.main = () =>
 }
 generateRandomLetters(3);
 
-setInterval(generateRandomLetters,100,10);
+//setInterval(generateRandomLetters,100,10);
 
 let timer = 0;
 main();
