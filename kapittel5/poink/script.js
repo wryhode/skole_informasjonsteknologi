@@ -5,7 +5,9 @@ canvas.height = window.innerHeight;
 let ctx = canvas.getContext("2d");
 let activeCamera = null;
 
-let mouseX, mouseY = 0;
+let mouseX = 0;
+let mouseY = 0;
+let mouseDelta = 0;
 
 function handleMouseMove(event)
 {
@@ -14,6 +16,13 @@ function handleMouseMove(event)
 }
 
 document.addEventListener("mousemove", handleMouseMove);
+
+function handleMouseWheel(event)
+{
+    mouseDelta = event.deltaY;
+}
+
+document.addEventListener("wheel", handleMouseWheel);
 
 function randomRGB()
 {
@@ -118,15 +127,22 @@ window.main = () =>
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawBlocks();
+    //mainCamera.targetFollowX = Math.sin(Date.now() / 100) * 100;
+    mainCamera.targetFollowX = mouseX;
+    mainCamera.targetFollowY = mouseY;
 
     activeCamera.transformDrawRect(playerPaddle);
 
     activeCamera.transformDrawOutline(gameArea);
 
+    activeCamera.smoothFollow();
+
     ctx.stroke();
 }
 
-let mainCamera = new Camera(canvas.width / 2, canvas.height / 2, 0.99);
+let mainCamera = new Camera(canvas.width / 2, canvas.height / 2, 1);
+mainCamera.targetFollowX = canvas.width / 2;
+mainCamera.targetFollowY = canvas.height / 2;
 activeCamera = mainCamera;
 let blocks = [];
 makeBlockGrid(10,10,canvas.width / 2);
