@@ -128,7 +128,7 @@ function generateNew()
 }
 
 document.addEventListener("keydown", handleKeyPress);
-let maxTimeoutMS = 2500;
+let maxTimeoutMS = 5000;
 let resultDiv = document.getElementById("result");
 let scoreSpan = document.getElementById("scoreHere");
 let scorePercentage = document.getElementById("scorePercentage");
