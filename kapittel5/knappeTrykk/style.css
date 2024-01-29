@@ -1,0 +1,52 @@
+body
+{
+    margin: 0px;
+    background-color: black;
+    font-family: sans-serif;
+}
+
+#letters
+{
+    width: 75%;
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+#result
+{
+    color: white;
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.gameLetter
+{
+    color: white;
+    font-size: 8rem;
+
+}
+
+.letterAnimated
+{
+    animation-name: blink;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+}
+
+main 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 99%;
+    border: 1px solid white;
+}
+
+@keyframes blink {
+    0% {color: yellow;}
+    50% {color: wheat;}
+    100% {color: yellow;}
+}

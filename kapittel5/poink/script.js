@@ -128,8 +128,12 @@ window.main = () =>
 
     drawBlocks();
     //mainCamera.targetFollowX = Math.sin(Date.now() / 100) * 100;
-    mainCamera.targetFollowX = mouseX;
-    mainCamera.targetFollowY = mouseY;
+    //mainCamera.targetFollowX = mouseX;
+    playerPaddle.x = Math.min(mouseX / 2, gameArea.width / 2 - playerPaddle.width);
+    playerPaddle.y = Math.min(mouseY, gameArea.height - playerPaddle.height);
+    mainCamera.targetZoom = 0.5 + (playerPaddle.y + playerPaddle.height / 2) - (gameArea.height / 2) / gameArea.height;
+    mainCamera.targetFollowX = playerPaddle.x + playerPaddle.width / 2;
+    mainCamera.targetFollowY = playerPaddle.y + playerPaddle.height / 2;
 
     activeCamera.transformDrawRect(playerPaddle);
 
