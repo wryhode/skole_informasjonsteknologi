@@ -3,6 +3,7 @@ body
     margin: 0px;
     background-color: black;
     font-family: sans-serif;
+    overflow: hidden
 }
 
 @keyframes blurout {
@@ -27,6 +28,11 @@ body
     color: white;
 }
 
+@keyframes resultGlideIn {
+    from {bottom: -25%; left: -25%;}
+    to {bottom: 0; left: 0;}
+}
+
 #result
 {
     padding: 3rem;
@@ -35,6 +41,14 @@ body
     position: absolute;
     bottom: 0;
     left: 0;
+
+    animation: resultGlideIn 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes leaderboardGlideIn {
+    from {bottom: -25%; right: -25%;}
+    to {bottom: 0; right: 0;}
 }
 
 #leaderboard
@@ -43,8 +57,11 @@ body
     display: none;
     color: white;
     position: absolute;
-    bottom: 0;
+    bottom: -50px;
     right: 0;
+
+    animation: leaderboardGlideIn 2s ease-in-out;
+    animation-fill-mode: forwards;
 }
 
 @keyframes logoFade {
@@ -59,7 +76,7 @@ body
 
     animation-name: logoFade;
     animation-duration: 1s;
-    animation-delay: 100ms;
+    animation-delay: 1s;
     animation-fill-mode: forwards;
 }
 

@@ -1,0 +1,123 @@
+body
+{
+    margin: 0px;
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+
+    overflow: hidden;
+}
+
+@keyframes fadeout {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+@keyframes blurout {
+    from {
+        opacity: 1;
+        filter: blur(0px);
+    }
+    to {
+        opacity: 0;
+        filter: blur(100px);
+    }
+}
+
+@keyframes letterBlink {
+    0% {color: yellow;}
+    50% {color: wheat;}
+    100% {color: yellow;}
+}
+
+#mainContent
+{
+    height: 100%;
+}
+
+#notificationBox
+{
+
+    background-color: gray;
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 2rem;
+
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 50%;
+}
+
+#titleDiv
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    animation: blurout 1s ease-in 500ms forwards;
+}
+
+#title
+{
+    font-size: 10rem;
+}
+
+#gameMessageDiv
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    animation: fadeout 3s  2s forwards;
+}
+
+#gameMessage
+{
+    font-size: 10rem;
+}
+
+#letters
+{
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.letter
+{
+    font-size: 10rem;
+}
+
+.menuFloater
+{
+    margin: 2rem;
+
+    position: absolute;
+}
+
+.floaterTitle
+{
+    font-size: 3rem;
+}
+
+.floaterInfo
+{
+    font-size: 1.5rem;
+}
+
+#scoreMenu
+{
+    left: 0;
+    bottom: 0;
+}
+#leaderBoard
+{
+    right: 0;
+    bottom: 0;
+}

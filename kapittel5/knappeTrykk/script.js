@@ -178,14 +178,14 @@ function getLetters()
 function startGame()
 {
     // Goes to end screen immediately
-    //gameActive = true;
-    //loseGame();
+    gameActive = true;
+    loseGame();
 
-    title.style.display = "none";
+    /*title.style.display = "none";
     registration.style.display = "none"
     lettersEl.style.display = "flex";
     gameActive = true;
-    generateNew();
+    generateNew();*/
 }
 
 function changeName()
