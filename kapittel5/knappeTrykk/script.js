@@ -53,11 +53,18 @@ function handleKeyPress(event)
         {
             resultDiv.style.display = "none";
             leaderBoard.style.display = "none";
+            registration.style.display = "none";
             gameActive = true;
             startTime = Date.now();
             generateNew();
         }
     }
+}
+
+function reloadScoreboard()
+{
+    scoreList.innerHTML = "Loading...";
+    GJAPI.ScoreFetch(884021, GJAPI.SCORE_ALL, 10, updateScoreboard);
 }
 
 function updateScoreboard(pResponse)
@@ -84,15 +91,21 @@ function loseGame()
         timeTakenElement.innerHTML = (endTime - startTime)/1000;
         scoreSpan.innerHTML = score;
         scorePercentage.innerHTML = Math.round(((score / Math.floor(Math.sqrt(maxTimeoutMS)))*100)*100) / 100;
+        playerNameEl.innerHTML = playerName;
         resultDiv.style.display = "unset";
         leaderBoard.style.display = "unset";
+        registration.style.display = "unset";
         gameActive = false;
         stopLettersAnimation();
         if (score > localHighscore)
         {
+            localStorage.setItem("highscore", score);
             if (playerName == "Guest")
             {
                 playerName = prompt("Type your name:");
+                if (playerName == null) {playerName = "Guest"}
+                localStorage.setItem("regname", playerName);
+                playerNameEl.innerHTML = playerName;
             }
             else
             {
@@ -108,8 +121,23 @@ function loseGame()
             }
             localHighscore = score;
         }
-        GJAPI.ScoreFetch(884021, GJAPI.SCORE_ALL, 10, updateScoreboard);
+        lHighScore.innerHTML = localHighscore
+        reloadScoreboard();
         score = 0;
+    }
+}
+
+function loadLocalStorage()
+{
+    if (localStorage.getItem("regname") != null)
+    {
+        playerName = localStorage.getItem("regname");
+        playerNameEl.innerHTML = playerName;
+    }
+
+    if (localStorage.getItem("highscore") != null)
+    {
+        localHighscore = localStorage.getItem("highscore");
     }
 }
 
@@ -147,11 +175,35 @@ function getLetters()
     return [l1, l2, l3, l4];
 }
 
+function startGame()
+{
+    // Goes to end screen immediately
+    //gameActive = true;
+    //loseGame();
+
+    title.style.display = "none";
+    registration.style.display = "none"
+    lettersEl.style.display = "flex";
+    gameActive = true;
+    generateNew();
+}
+
+function changeName()
+{
+    let input = prompt("Please type your new name");
+    if(input != null)
+    {
+        playerName = input;
+    }
+    localStorage.setItem("regname", playerName);
+    playerNameEl.innerHTML = playerName;
+}
+
 function generateNew()
 {
     clearTimeout(timeoutID);
 
-    alphas = alphabet.slice(0); // Copy array without "linking" them in memory
+    alphas = alphabet.slice(0); // Copy array without "linking" them in memory (to my understanding)
     let generatedLetters = randomLetters(docLetters.length);
     activeLetter = docLetters[Math.floor(Math.random() * docLetters.length)];
     
@@ -163,9 +215,10 @@ function generateNew()
         letter.animate(false);
     }
     
-    activeLetter.animate(true * gameActive);
+    activeLetter.animate(true * gameActive); // generateNew may be called when the game isn't running, dont animate anything if this is the case
     
-    timeoutID = setTimeout(loseGame, maxTimeoutMS - Math.pow(score, 2));
+    currentStartTime = Date.now();
+    timeoutID = setTimeout(loseGame, maxTimeoutMS / ((score / 25) + 1));
 }
 
 document.addEventListener("keydown", handleKeyPress);
@@ -176,10 +229,17 @@ let scorePercentage = document.getElementById("scorePercentage");
 let timeTakenElement = document.getElementById("timeTaken");
 let scoreList = document.getElementById("scoreList");
 let leaderBoard = document.getElementById("leaderboard");
+let title = document.getElementById("title");
+let lettersEl = document.getElementById("letters");
+let registration = document.getElementById("registration");
+let playerNameEl = document.getElementById("playerName");
+let lHighScore = document.getElementById("lHighScore");
+title.addEventListener("animationend", startGame,false);
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-let gameActive = true;
+let gameActive = false;
 let alphas = alphabet;
 let docLetters = getLetters();
+let currentStartTime = null;
 let startTime = Date.now();
 let endTime = null
 let activeLetter = null;
@@ -189,4 +249,6 @@ let localHighscore = 1;
 let playerName = "Guest";
 let submitScores = true;
 
-generateNew();
+loadLocalStorage();
+
+//generateNew();

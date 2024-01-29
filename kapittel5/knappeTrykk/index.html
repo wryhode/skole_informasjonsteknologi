@@ -3,11 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typebomb</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <main>
-        <div id="letters">
+        <h1 id="title">Typebomb</h1>
+        <div id="letters" style="display: none;">
             <div class="gameLetter" id="letter1"></div>
             <div class="gameLetter" id="letter2"></div>
             <div class="gameLetter" id="letter3"></div>
@@ -16,18 +19,26 @@
 
     </main>
     
+    <div id="registration">
+        <p>Registered as: <span id="playerName"></span></p>
+        <button onclick="changeName()">Click to change</button>
+    </div>
+
     <div id="result">
-        <h1>Spillet er over!</h1>
-        <p>Du fikk <span id="scoreHere"></span> poeng</p>
-        <p>Det er <span id="scorePercentage"></span>% av den maksimale poengsummen</p>
-        <p>Du varte <span id="timeTaken"></span> sekunder</p>
-        <p>Trykk på en knapp for å starte på nytt!</p>
+        <h1>Game over!</h1>
+        <p>You got <span id="scoreHere"></span> points</p>
+        <p>That's <span id="scorePercentage"></span>% of the max-score</p>
+        <p>You lasted <span id="timeTaken"></span> seconds</p>
+        <p>Local highscore is <span id="lHighScore"></span> points</p>
+        <p>Press a button to restart</p>
     </div>
     
     <div id="leaderboard">
-        <h1>Score-tavle</h1>
+        <h2>Leaderboard</h2>
         <ol id="scoreList">
+            loading...
         </ol>
+        <button onclick="reloadScoreboard()">Reload</button>
     </div>
 
     <script src="gj-js-api-min.js"></script>
