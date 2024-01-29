@@ -15,11 +15,22 @@ body
 
 #result
 {
+    padding: 3rem;
     color: white;
     display: none;
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+#leaderboard
+{
+    padding: 3rem;
+    display: none;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .gameLetter

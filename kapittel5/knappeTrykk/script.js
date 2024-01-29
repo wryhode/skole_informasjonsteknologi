@@ -52,9 +52,27 @@ function handleKeyPress(event)
         else
         {
             resultDiv.style.display = "none";
+            leaderBoard.style.display = "none";
             gameActive = true;
+            startTime = Date.now();
             generateNew();
         }
+    }
+}
+
+function updateScoreboard(pResponse)
+{
+    scoreList.innerHTML = "";
+    if(!pResponse.scores) return;
+
+    for(let i = 0; i < pResponse.scores.length; ++i)
+    {
+        const pScore = pResponse.scores[i];
+        
+        let el = document.createElement("li");
+        el.innerHTML = (pScore.user ? pScore.user : pScore.guest) + " - " + pScore.score;
+
+        scoreList.appendChild(el);
     }
 }
 
@@ -62,11 +80,35 @@ function loseGame()
 {
     if(gameActive)
     {
-        scoreSpan.innerHTML = score
-        scorePercentage.innerHTML = Math.round(((score / Math.floor(Math.sqrt(maxTimeoutMS)))*100)*100) / 100
+        endTime = Date.now();
+        timeTakenElement.innerHTML = (endTime - startTime)/1000;
+        scoreSpan.innerHTML = score;
+        scorePercentage.innerHTML = Math.round(((score / Math.floor(Math.sqrt(maxTimeoutMS)))*100)*100) / 100;
         resultDiv.style.display = "unset";
+        leaderBoard.style.display = "unset";
         gameActive = false;
         stopLettersAnimation();
+        if (score > localHighscore)
+        {
+            if (playerName == "Guest")
+            {
+                playerName = prompt("Type your name:");
+            }
+            else
+            {
+                alert("New high score!");
+            }
+            if (submitScores)
+            {
+                GJAPI.ScoreAddGuest(884021, score, `Score: ${score} Time: ${(endTime - startTime)/1000}`, playerName);
+            }
+            else
+            {
+                console.warn("Score submitting is off! No score was sent")
+            }
+            localHighscore = score;
+        }
+        GJAPI.ScoreFetch(884021, GJAPI.SCORE_ALL, 10, updateScoreboard);
         score = 0;
     }
 }
@@ -124,7 +166,6 @@ function generateNew()
     activeLetter.animate(true * gameActive);
     
     timeoutID = setTimeout(loseGame, maxTimeoutMS - Math.pow(score, 2));
-    
 }
 
 document.addEventListener("keydown", handleKeyPress);
@@ -132,12 +173,20 @@ let maxTimeoutMS = 5000;
 let resultDiv = document.getElementById("result");
 let scoreSpan = document.getElementById("scoreHere");
 let scorePercentage = document.getElementById("scorePercentage");
+let timeTakenElement = document.getElementById("timeTaken");
+let scoreList = document.getElementById("scoreList");
+let leaderBoard = document.getElementById("leaderboard");
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 let gameActive = true;
 let alphas = alphabet;
 let docLetters = getLetters();
+let startTime = Date.now();
+let endTime = null
 let activeLetter = null;
 let timeoutID = null;
 let score = 0;
+let localHighscore = 1;
+let playerName = "Guest";
+let submitScores = true;
 
 generateNew();

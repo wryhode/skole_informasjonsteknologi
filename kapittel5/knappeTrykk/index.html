@@ -2,11 +2,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Typebomb</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
     <main>
         <div id="letters">
             <div class="gameLetter" id="letter1"></div>
@@ -16,13 +15,22 @@
         </div>
 
     </main>
+    
     <div id="result">
         <h1>Spillet er over!</h1>
         <p>Du fikk <span id="scoreHere"></span> poeng</p>
         <p>Det er <span id="scorePercentage"></span>% av den maksimale poengsummen</p>
+        <p>Du varte <span id="timeTaken"></span> sekunder</p>
         <p>Trykk på en knapp for å starte på nytt!</p>
     </div>
+    
+    <div id="leaderboard">
+        <h1>Score-tavle</h1>
+        <ol id="scoreList">
+        </ol>
+    </div>
 
+    <script src="gj-js-api-min.js"></script>
     <script src="./script.js"></script>
 
 </body>
