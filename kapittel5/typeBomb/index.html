@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typebomb</title>
+    <link href="https://fonts.cdnfonts.com/css/a-cursive" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,12 +28,20 @@
                 <!-- Gets filled with <div class="letter">{Symbol}</div> -->
             </div>
 
+            <div id="dyslexiaDiv">
+                <button id="dyslexiaButton">Toggle dyslexia mode</button>
+            </div>
+
+            <div id="renameDiv">
+                <button id="renameButton">Change nickname</button>
+            </div>
+
             <div class="menuFloater" id="scoreMenu">
                 <div>
                     <h1 class="floaterTitle">Score</h1>
                     <div class="floaterInfo">
-                        <p>You got 200 points</p>
-                        <p>Current highscore is 200 points</p>
+                        <p>You got <span id="scoreCounter"></span> points</p>
+                        <p>Current highscore is <span id="highscoreCounter"></span> points</p>
                     </div>
                 </div>
             </div>
@@ -40,7 +49,7 @@
             <div class="menuFloater" id="leaderboard">
                 <div>
                     <h1 class="floaterTitle">Leaderboard</h1>
-                    <ol class="floaterInfo">
+                    <ol class="floaterInfo" id="leaderboardList">
                         <li>Username - 20 points</li>
                         <li>Username - 19 points</li>
                         <li>Username - 18 points</li>
@@ -59,6 +68,7 @@
 
     </div>
 
+    <script src="gj-js-api-min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -7,6 +7,12 @@ const leaderboard = document.getElementById("leaderboard");
 const gameMessageDiv = document.getElementById("gameMessageDiv");
 const gameMessage = document.getElementById("gameMessage");
 const lettersDiv = document.getElementById("letters");
+const timeoutDuration = document.getElementById("timeoutDuration");
+const dyslexiaButton = document.getElementById("dyslexiaButton");
+const renameButton = document.getElementById("renameButton");
+const scoreCounter = document.getElementById("scoreCounter");
+const highscoreCounter = document.getElementById("highscoreCounter");
+const leaderboardList = document.getElementById("leaderboardList");
 
 const charset = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 let availableCharset = charset.slice(0);
@@ -18,7 +24,10 @@ let isGameMessageActive = false;
 let takeGameInput = false;
 let loseTimeoutID = null
 let score = 0;
+let highScore = 0;
 let timeOutTime = 5000;
+let dyslexiaMode = false;
+let playerName = "Guest";
 
 class Symbol
 {
@@ -81,8 +90,34 @@ function misTyped()
     takeGameInput = false;
     activeSymbol.setAnimation(false);
     lettersDiv.style.display = "none";
+    scoreCounter.innerHTML = score;
+    highscoreCounter.innerHTML = highScore;
+    if(score > highScore)
+    {
+        highScore = score;
+        localStorage.setItem("highscore", highScore);
+        GJAPI.ScoreAddGuest(884021, score, `Score: ${score}`, playerName);
+    }
+    saveToLocalStorage();
+    GJAPI.ScoreFetch(884021, GJAPI.SCORE_ALL, 10, updateScoreboard);
     displayGameMessage("Game over!");
     startMenu();
+}
+
+function updateScoreboard(pResponse)
+{
+    leaderboardList.innerHTML = "";
+    if(!pResponse.scores) return;
+
+    for(let i = 0; i < pResponse.scores.length; ++i)
+    {
+        const pScore = pResponse.scores[i];
+        
+        let el = document.createElement("li");
+        el.innerHTML = (pScore.user ? pScore.user : pScore.guest) + " - " + pScore.score;
+
+        leaderboardList.appendChild(el);
+    }
 }
 
 function resetAvailableChars()
@@ -169,9 +204,31 @@ function boolToDisplayStyle(show)
     }
 }
 
+function saveToLocalStorage()
+{
+    localStorage.setItem("highscore", highScore)
+}
+
+function loadFromLocalStorage()
+{
+    highScore = localStorage.getItem("highscore");
+}
+
 function setupGameChars(nChars)
 {
     clearTimeout(loseTimeoutID);
+
+    if(dyslexiaMode)
+    {
+        lettersDiv.style.fontSize = "1rem";
+        lettersDiv.style.fontFamily = "A Cursive"
+        nChars = charset.length;
+    }
+    else
+    {
+        lettersDiv.style.fontSize = "10rem";
+        lettersDiv.style.fontFamily = "Monospace"
+    }
 
     symbols = new Array();
     lettersDiv.innerHTML = "";
@@ -182,7 +239,7 @@ function setupGameChars(nChars)
     selectRandomChar();
 
     charItersWithoutRefresh ++;
-    if(charItersWithoutRefresh >= 2)
+    if(charItersWithoutRefresh >= 2 - dyslexiaMode)
     {
         resetAvailableChars();
         charItersWithoutRefresh = 0;
@@ -190,6 +247,11 @@ function setupGameChars(nChars)
 
     timeOutTime = 5000 / ((score/25) + 1);
     loseTimeoutID = setTimeout(misTyped, timeOutTime);
+}
+
+function toggleDyslexiaMode()
+{
+    dyslexiaMode = !dyslexiaMode;
 }
 
 function selectRandomChar()
@@ -207,6 +269,15 @@ function showMenuElements(show)
     leaderboard.style.display = displayStyle;
     notificationBox.style.display = boolToDisplayStyle(show * isNotifying);
     gameMessageDiv.style.display = boolToDisplayStyle(show * isGameMessageActive);
+}
+
+function rename()
+{
+    let input = prompt("New name");
+    if(input != null)
+    {
+        playerName = input;
+    }
 }
 
 function startMenu()
@@ -230,7 +301,11 @@ function init()
     startMenu();
 }
 
+loadFromLocalStorage();
+
 document.addEventListener("keydown", handleKeyPress);
+dyslexiaButton.onclick = toggleDyslexiaMode;
+renameButton.onclick = rename;
 
 showMenuElements(false);
 titleDiv.style.display = "unset";
