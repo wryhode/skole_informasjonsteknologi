@@ -18,6 +18,8 @@ button
     padding: 1rem;
     margin-bottom: 1rem;
     cursor: pointer;
+
+    box-shadow: 0.2em 0.2em 0 white;
 }
 
 @keyframes fadeout {
@@ -155,6 +157,14 @@ button
     right: 0;
     margin: 1rem;
     opacity: 0.5;
+    transition-duration: 500ms;
+    color: white;
+    text-decoration: none;
+}
+
+#watermark:hover
+{
+    opacity: 1;
 }
 
 #watermark h1

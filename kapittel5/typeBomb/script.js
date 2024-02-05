@@ -25,7 +25,7 @@ let isNotifying = false;                    // Is the notification menu active?
 let isGameMessageActive = false;            // Is the game message notifier active?
 let takeGameInput = false;                  // Whether or not to evaluate 
 let loseTimeoutID = null                    // Last timeout ID to stop it to not gameover immediately
-let score = 0;                              // Self explanatory
+let score = null;                              // Self explanatory
 let highScore = 0;                          // this is the LOCAL highscore
 let timeOutTime = 5000;                     // Doesn't set anything, the time in ms of the gameover timeout
 let dyslexiaMode = false;                   // A joke mode suggested by my dyslexic friend as a challenge
@@ -333,6 +333,14 @@ function resetHighscore()
 // Shows menu
 function startMenu()
 {
+    if(score != null)
+    {
+        scoreCounter.innerHTML = score;
+    }
+    else
+    {
+        scoreCounter.innerHTML = "no"
+    }
     takeGameInput = false;
     showMenuElements(true);
     displayNotification("Tips", "You can restart immediately after a game over by pressing a key");
