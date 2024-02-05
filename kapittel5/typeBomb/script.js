@@ -64,6 +64,7 @@ function handleKeyPress(event)
 {
     const key = event.key;
     const gameKey = key.toUpperCase();
+    let specials = event.ctrlKey | event.shiftKey | event.altKey;
 
     if(takeGameInput)
     {
@@ -82,7 +83,7 @@ function handleKeyPress(event)
     }
     else
     {
-        if(charset.includes(gameKey))
+        if(charset.includes(gameKey) && !specials)
         {
             startGame();
         }

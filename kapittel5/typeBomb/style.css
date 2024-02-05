@@ -130,13 +130,41 @@ button
     font-size: 1.5rem;
 }
 
+#settingsMenu
+{
+    right: 0;
+    bottom: 0;
+}
+
 #scoreMenu
 {
     left: 0;
     bottom: 0;
 }
+
 #leaderBoard
 {
+    left: 0;
+    top: 0;
+}
+
+#watermark
+{
+    position: absolute;
+    top: 0;
     right: 0;
-    bottom: 0;
+    margin: 1rem;
+    opacity: 0.5;
+}
+
+#watermark h1
+{
+    margin: 0px;
+}
+
+#watermark p
+{
+    text-align: right;
+    color: gray;
+    margin: 0px;
 }
