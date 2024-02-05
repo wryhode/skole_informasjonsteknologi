@@ -15,21 +15,23 @@ const scoreCounter = document.getElementById("scoreCounter");
 const highscoreCounter = document.getElementById("highscoreCounter");
 const leaderboardList = document.getElementById("leaderboardList");
 
-const charset = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-let availableCharset = charset.slice(0);
-let charItersWithoutRefresh = 0;
-let symbols = new Array();
-let activeSymbol = null;
-let isNotifying = false;
-let isGameMessageActive = false;
-let takeGameInput = false;
-let loseTimeoutID = null
-let score = 0;
-let highScore = 0;
-let timeOutTime = 5000;
-let dyslexiaMode = false;
-let playerName = "Guest";
+// Game variables
+const charset = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']; // The characters that are allowed to appear in game
+let availableCharset = charset.slice(0);    // To mitigate duplicates, pick items from this array and remove it. (Copies but does not link them)
+let charItersWithoutRefresh = 0;            // How many character pulls have occured without resetting availableCharset
+let symbols = new Array();                  // Array of Symbol objects
+let activeSymbol = null;                    // Points to the active symbol
+let isNotifying = false;                    // Is the notification menu active?
+let isGameMessageActive = false;            // Is the game message notifier active?
+let takeGameInput = false;                  // Whether or not to evaluate 
+let loseTimeoutID = null                    // Last timeout ID to stop it to not gameover immediately
+let score = 0;                              // Self explanatory
+let highScore = 0;                          // this is the LOCAL highscore
+let timeOutTime = 5000;                     // Doesn't set anything, the time in ms of the gameover timeout
+let dyslexiaMode = false;                   // A joke mode suggested by my dyslexic friend as a challenge
+let playerName = "Guest";                   // Default player name in case they've never played before
 
+// A class to simplify symbol handling
 class Symbol
 {
     constructor(parentElement, symbol)
@@ -60,11 +62,12 @@ class Symbol
     }
 }
 
+// General key handling function
 function handleKeyPress(event)
 {
     const key = event.key;
     const gameKey = key.toUpperCase();
-    let specials = event.ctrlKey | event.shiftKey | event.altKey;
+    let specials = event.ctrlKey | event.shiftKey | event.altKey; // Were there any special keys pressed? Stops re-starting the game if the user uses ctrl + r to reload etc.
 
     if(takeGameInput)
     {
@@ -90,6 +93,7 @@ function handleKeyPress(event)
     }
 }
 
+// Gets called if the user mistypes or the timer runs out. Initiates gameover state and returns to the menus
 function misTyped()
 {
     takeGameInput = false;
@@ -109,6 +113,7 @@ function misTyped()
     startMenu();
 }
 
+// Updates the leaderboard in the DOM with a GJAPI call
 function updateScoreboard(pResponse)
 {
     leaderboardList.innerHTML = "";
@@ -125,11 +130,13 @@ function updateScoreboard(pResponse)
     }
 }
 
+// Resets the available charaters, this opens for duplicates so fix this later
 function resetAvailableChars()
 {
     availableCharset = charset.slice(0);
 }
 
+// Picks a random character from the remaining characters
 function pickRandomChar()
 {
     let randomIndex = Math.floor(Math.random() * availableCharset.length);
@@ -138,6 +145,7 @@ function pickRandomChar()
     return char;
 }
 
+// Picks multiple, not repeating characters
 function pickRandomCharMulti(nChars)
 {
     let pickedChars = new Array();
@@ -148,12 +156,14 @@ function pickRandomCharMulti(nChars)
     return pickedChars;
 }
 
+// Hides the notification bar thingy
 function hideNotification()
 {
     isNotifying = false;
     notificationBox.style.display = boolToDisplayStyle(isNotifying);
 }
 
+// Yup,, you guessed it
 function displayNotification(title, message)
 {
     notificationBox.innerHTML = "";
@@ -168,12 +178,14 @@ function displayNotification(title, message)
     notificationBox.addEventListener("animationend", hideNotification)
 }
 
+// Self explanatory
 function hideGameMessage()
 {
     isGameMessageActive = false;
     gameMessageDiv.style.display = boolToDisplayStyle(false);
 }
 
+// This too
 function displayGameMessage(message, fadeTime = 5000)
 {
     gameMessage.innerHTML = message;
@@ -182,6 +194,7 @@ function displayGameMessage(message, fadeTime = 5000)
     gameMessageDiv.addEventListener("animationend", hideGameMessage);
 }
 
+// Creates a new symbol and a symbol element
 function createSymbol(symbol = "A")
 {
     let symbolEl = new Symbol(lettersDiv, symbol);
@@ -189,6 +202,7 @@ function createSymbol(symbol = "A")
     symbols.push(symbolEl);
 }
 
+// Creates many symbols
 function createSymbols(nSymbols, symbols)
 {
     for (let i = 0; i < nSymbols; i++)
@@ -197,6 +211,7 @@ function createSymbols(nSymbols, symbols)
     }
 }
 
+// Instead of writing "unset" or "none" for standard menu elements
 function boolToDisplayStyle(show)
 {
     if(show)
@@ -209,18 +224,21 @@ function boolToDisplayStyle(show)
     }
 }
 
+// Saves to localstorage
 function saveToLocalStorage()
 {
     localStorage.setItem("highscore", highScore);
     localStorage.setItem("username", playerName);
 }
 
+// Reads from localstorage, no verification at the moment, pls fix
 function loadFromLocalStorage()
 {
     highScore = localStorage.getItem("highscore");
     playerName = localStorage.getItem("username");
 }
 
+// Called once the game starts or the user types the correct key
 function setupGameChars(nChars)
 {
     clearTimeout(loseTimeoutID);
@@ -256,6 +274,7 @@ function setupGameChars(nChars)
     loseTimeoutID = setTimeout(misTyped, timeOutTime);
 }
 
+// Activates the joke mode
 function toggleDyslexiaMode()
 {
     dyslexiaMode = !dyslexiaMode;
@@ -269,6 +288,7 @@ function toggleDyslexiaMode()
     }
 }
 
+// Selects a random symbol class
 function selectRandomChar()
 {
     let whichChar = Math.floor(Math.random() * symbols.length);
@@ -277,6 +297,7 @@ function selectRandomChar()
     activeSymbol.setAnimation(true);
 }
 
+// Gee i wonder what this does
 function showMenuElements(show)
 {
     let displayStyle = boolToDisplayStyle(show);
@@ -286,6 +307,7 @@ function showMenuElements(show)
     gameMessageDiv.style.display = boolToDisplayStyle(show * isGameMessageActive);
 }
 
+// Rename the player and store in localstorage
 function rename()
 {
     let input = prompt("New name");
@@ -297,6 +319,9 @@ function rename()
     }
 }
 
+// TW: Resetting values of a certain high score
+// You guys won't believe what im doing rn
+// ...
 function resetHighscore()
 {
     highScore = 0;
@@ -305,6 +330,7 @@ function resetHighscore()
     displayNotification("Info", "Reset the local high score");
 }
 
+// Shows menu
 function startMenu()
 {
     takeGameInput = false;
@@ -312,6 +338,7 @@ function startMenu()
     displayNotification("Tips", "You can restart immediately after a game over by pressing a key");
 }
 
+// Can you believe it guys?? startGame() function in a game??? Woohoo! I am so happy about this information
 function startGame()
 {
     score = 0;
@@ -321,6 +348,7 @@ function startGame()
     takeGameInput = true;
 }
 
+// Called after the title fade
 function init()
 {
     GJAPI.ScoreFetch(885603, GJAPI.SCORE_ALL, 10, updateScoreboard);
@@ -330,6 +358,7 @@ function init()
     startMenu();
 }
 
+// Pre-init-init-initialisation-start-code
 loadFromLocalStorage();
 document.addEventListener("keydown", handleKeyPress);
 dyslexiaButton.onclick = toggleDyslexiaMode;
