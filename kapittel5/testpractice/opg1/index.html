@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="skrivUt"></p>
+    <button id="nextImage">Next image</button><br>
+    <img src="./goodworklenovo.png" alt="" id="img">
+    <script>
+        const image = document.getElementById("img");
+        const nextImage = document.getElementById("nextImage");
+        const srcList = ["./goodworklenovo.png", "./goodworklenovo_2.png"]
+        let listIndex = 0;
+        
+        nextImage.onclick = function()
+        {
+            listIndex ++;
+            if(listIndex >= srcList.length){listIndex = 0;}
+            image.src = srcList[listIndex];
+        }
+    </script>
+</body>
+</html>

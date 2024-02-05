@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="navn" type="text">
+    <button id="btnTrykk">Ok</button>
+    <p id="resultat"></p>
+
+    <script>
+        const resultat = document.getElementById("resultat");
+        const navn = document.getElementById("navn");
+        const btnTrykk = document.getElementById("btnTrykk");
+
+        btnTrykk.onclick = function()
+        {
+            if(navn.value.toLowerCase() === "konrad")
+            {
+                resultat.innerHTML = "Du heter Konrad";
+            }
+            else
+            {
+                resultat.innerHTML = "Du heter ikke Konrad";
+            }
+        }
+    </script>
+
+</body>
+</html>
