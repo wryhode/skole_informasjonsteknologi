@@ -9,6 +9,7 @@ const gameMessage = document.getElementById("gameMessage");
 const lettersDiv = document.getElementById("letters");
 const timeoutDuration = document.getElementById("timeoutDuration");
 const dyslexiaButton = document.getElementById("dyslexiaButton");
+const resetHighscoreButton = document.getElementById("resetHighscoreButton");
 const renameButton = document.getElementById("renameButton");
 const scoreCounter = document.getElementById("scoreCounter");
 const highscoreCounter = document.getElementById("highscoreCounter");
@@ -81,7 +82,10 @@ function handleKeyPress(event)
     }
     else
     {
-        startGame();
+        if(charset.includes(gameKey))
+        {
+            startGame();
+        }
     }
 }
 
@@ -95,11 +99,11 @@ function misTyped()
     if(score > highScore)
     {
         highScore = score;
-        localStorage.setItem("highscore", highScore);
-        GJAPI.ScoreAddGuest(884021, score, `Score: ${score}`, playerName);
+        saveToLocalStorage();
+        GJAPI.ScoreAddGuest(885603, score, `Score: ${score}`, playerName);
     }
     saveToLocalStorage();
-    GJAPI.ScoreFetch(884021, GJAPI.SCORE_ALL, 10, updateScoreboard);
+    GJAPI.ScoreFetch(885603, GJAPI.SCORE_ALL, 10, updateScoreboard);
     displayGameMessage("Game over!");
     startMenu();
 }
@@ -206,12 +210,14 @@ function boolToDisplayStyle(show)
 
 function saveToLocalStorage()
 {
-    localStorage.setItem("highscore", highScore)
+    localStorage.setItem("highscore", highScore);
+    localStorage.setItem("username", playerName);
 }
 
 function loadFromLocalStorage()
 {
     highScore = localStorage.getItem("highscore");
+    playerName = localStorage.getItem("username");
 }
 
 function setupGameChars(nChars)
@@ -252,6 +258,14 @@ function setupGameChars(nChars)
 function toggleDyslexiaMode()
 {
     dyslexiaMode = !dyslexiaMode;
+    if(dyslexiaMode)
+    {
+        displayNotification("Info", "Dyslexia mode is on. (Good luck)")
+    }
+    else
+    {
+        displayNotification("Info", "Dyslexia mode is off. (Good luck)")
+    }
 }
 
 function selectRandomChar()
@@ -277,7 +291,17 @@ function rename()
     if(input != null)
     {
         playerName = input;
+        saveToLocalStorage();
+        displayNotification("Info", `Changed name to: ${playerName}`);
     }
+}
+
+function resetHighscore()
+{
+    highScore = 0;
+    highscoreCounter.innerHTML = highScore;
+    saveToLocalStorage();
+    displayNotification("Info", "Reset the local high score");
 }
 
 function startMenu()
@@ -289,6 +313,7 @@ function startMenu()
 
 function startGame()
 {
+    score = 0;
     setupGameChars(5);
     showMenuElements(false);
     lettersDiv.style.display = "flex";
@@ -297,16 +322,18 @@ function startGame()
 
 function init()
 {
+    GJAPI.ScoreFetch(885603, GJAPI.SCORE_ALL, 10, updateScoreboard);
     titleDiv.style.display = "none";
+    scoreCounter.innerHTML = score;
+    highscoreCounter.innerHTML = highScore;
     startMenu();
 }
 
 loadFromLocalStorage();
-
 document.addEventListener("keydown", handleKeyPress);
 dyslexiaButton.onclick = toggleDyslexiaMode;
 renameButton.onclick = rename;
-
+resetHighscoreButton.onclick = resetHighscore;
 showMenuElements(false);
 titleDiv.style.display = "unset";
 titleDiv.onanimationend = init;

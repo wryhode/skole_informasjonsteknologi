@@ -4,8 +4,20 @@ body
     background-color: black;
     color: white;
     font-family: monospace;
-
+    
     overflow: hidden;
+}
+
+button
+{
+    font-family: monospace;
+    border-radius: 0px;
+    border: solid white 1px;
+    background-color: black;
+    color: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 @keyframes fadeout {
@@ -94,10 +106,6 @@ body
     justify-content: center;
     align-items: center;
     font-size: 10rem;
-}
-
-.letter
-{
 }
 
 .blinkingLetter

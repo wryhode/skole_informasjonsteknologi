@@ -28,12 +28,18 @@
                 <!-- Gets filled with <div class="letter">{Symbol}</div> -->
             </div>
 
-            <div id="dyslexiaDiv">
-                <button id="dyslexiaButton">Toggle dyslexia mode</button>
-            </div>
-
-            <div id="renameDiv">
-                <button id="renameButton">Change nickname</button>
+            <div class="menuFloater" id="settingsMenu">
+                <div id="dyslexiaDiv">
+                    <button id="dyslexiaButton">Toggle dyslexia mode</button>
+                </div>
+                
+                <div id="renameDiv">
+                    <button id="renameButton">Change nickname</button>
+                </div>
+                
+                <div id="resetHighscoreDiv">
+                    <button id="resetHighscoreButton">Reset local highscore</button>
+                </div>
             </div>
 
             <div class="menuFloater" id="scoreMenu">
@@ -41,7 +47,7 @@
                     <h1 class="floaterTitle">Score</h1>
                     <div class="floaterInfo">
                         <p>You got <span id="scoreCounter"></span> points</p>
-                        <p>Current highscore is <span id="highscoreCounter"></span> points</p>
+                        <p>Current (local) highscore is <span id="highscoreCounter"></span> points</p>
                     </div>
                 </div>
             </div>
