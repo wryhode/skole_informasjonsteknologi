@@ -375,3 +375,4 @@ resetHighscoreButton.onclick = resetHighscore;
 showMenuElements(false);
 titleDiv.style.display = "unset";
 titleDiv.onanimationend = init;
+titleDiv.focus();
