@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="margin: 0px;">
+    <label for="valueInput"></label>
+    <input type="number" name="valueInput" id="value" min="0">
+
+    <div id="result" style="width: 100vw; display: flex; flex-direction: row; justify-content:left; flex-wrap: wrap;"></div>
+
+    <script>
+        const valueInput = document.getElementById("value");
+        const result = document.getElementById("result");
+
+        let laster = false;
+        let kortstokk = [];
+        
+        let valueNames = {
+            "ACE": "ESS",
+            "JACK": "KNEKT",
+            "QUEEN": "DAME",
+            "KING": "KONGE"
+        }
+
+        let sortNames = {
+            "CLUBS": "KLØVER",
+            "DIAMONDS": "RUTER",
+            "HEARTS": "HJERTER",
+            "SPADES": "SPAR"
+        }
+
+        let trekkKort = async () => {
+            let antall = valueInput.value;
+            result.innerHTML = "Laster ..."
+            laster = true;
+            let data = await fetch(`https://www.deckofcardsapi.com/api/deck/new/draw/?count=${antall}`);
+            let json = await data.json();
+            kortstokk = json.cards;
+            laster = false;
+
+            function isNumber(value)
+            {
+                if(typeof value === "string")
+                {
+                    return !isNaN(value);
+                }
+                return false;
+            }
+            
+            result.innerHTML = "";
+            for(let i = 0; i < kortstokk.length; i++)
+            {
+                const kort = kortstokk[i];
+                let div = document.createElement("div");
+                let image = document.createElement("img");
+                let title = document.createElement("h2");
+                let valueText = kort.value;
+
+                if(!isNumber(kort.value))
+                {
+                    valueText = valueNames[kort.value];
+                }
+
+                let sortText = sortNames[kort.suit];
+                let cardTitle = `${sortText} ${valueText}`
+
+                image.src = kort.images.png;
+                image.alt = cardTitle;
+                title.innerHTML = cardTitle;
+
+                div.appendChild(title);
+                div.appendChild(image);
+                result.appendChild(div);
+            }
+        }
+
+        valueInput.addEventListener("change", trekkKort);
+    </script>
+</body>
+</html>
