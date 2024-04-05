@@ -1,0 +1,6 @@
+#answerSelection {
+    display: grid;
+    width: 476px;
+    height: 476px;
+    grid-template-columns: 33% 33% 33%;
+}
