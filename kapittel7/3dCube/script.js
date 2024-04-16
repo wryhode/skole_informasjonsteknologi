@@ -8,7 +8,7 @@ let cameraX, cameraY, cameraZ;
 let cameraRotX, cameraRotY, cameraRotZ;
 let cameraVector = [0,0,0];
 let cameraRotVector = [0,0,0];
-let cameraVF = 50;
+let cameraVF = canvas.width / 2;;
 let model = null;
 
 async function loadModel(fileName) {
@@ -133,19 +133,11 @@ function handleKeyPress(event){
     if(key == "ArrowRight"){
         cameraRotVector[1] = 1;
     }
-    if(key == "c")
-    {
-        cameraVF = 200;
-    }
 }
 
 function handleKeyUp(event){
     const key = event.key;
-    
-    if(key == "c")
-    {
-        cameraVF = canvas.width / 2;
-    }
+
     if(key == "a"){
         cameraVector[0] = 0;
     }
@@ -183,7 +175,7 @@ document.addEventListener("keydown", handleKeyPress);
 document.addEventListener("keyup", handleKeyUp);
 
 function init(){
-    loadModel("untitled2.obj").then((response) => {
+    model = loadModel("monke.obj").then((response) => {
         model = response;
         let t = 0;
         cameraX = 0;
@@ -192,6 +184,7 @@ function init(){
         cameraRotX = 0;
         cameraRotY = 0;
         cameraRotZ = 0;
+
         function main(){
             window.requestAnimationFrame(main);
             ctx.clearRect(0, 0, canvas.height, canvas.width);
@@ -202,15 +195,22 @@ function init(){
             cameraY += cameraVector[1]* 0.1;
             cameraZ += cameraVector[2]*0.1;
             
-            cameraRotX += cameraRotVector[0] * 0.1;
-            cameraRotY += cameraRotVector[1] * 0.1;
-            cameraRotZ += cameraRotVector[2] * 0.1;
+            cameraX = Math.sin(t/100) * 20;
+            cameraZ = Math.cos(t/100) * 20;
+            cameraRotY = t/100
 
-            let s = 3+Math.sin(t/10)*2
-            let tverts = transformObject(model.vertecies, [0,0,0], [0,t/50,0], [1,s,1]);
+            cameraRotX += cameraRotVector[0] * 0.01;
+            cameraRotY += cameraRotVector[1] * 0.01;
+            cameraRotZ += cameraRotVector[2] * 0.01;
+
+            let a = 3+Math.sin(t/20)*2;
+            let b = 3+Math.cos((t+0.5)/20)*2;
+            let c = 3+Math.sin((t+1.4)/20)*2;
+            let tverts = transformObject(model.vertecies, [0,0,0], [0,0,0], [a,b,c]);
             let vertecies = transformObject(tverts, [cameraX, cameraY, cameraZ], [cameraRotX, cameraRotY, cameraRotZ], [1,1,1]);
             drawObject(vertecies, model.faces);
             t ++;
+
         }
         main();
     });
